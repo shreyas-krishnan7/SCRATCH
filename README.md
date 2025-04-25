@@ -34,20 +34,6 @@ cd scatch
 npm install
 npm start
 
-Visit http://localhost:3000 in your browser.
-📦 Folder Structure (Example)
-
-scatch/
-├── views/
-│   └── account.ejs, cart.ejs, home.ejs  , createproduct.ejs , index.ejs , login.ejs , shop.ejs
-├── public/
-│   ├── stylesheets/
-│   └── images/
-├── routes/
-├── models/
-├── app.js
-└── package.json
-
 💡 Future Improvements
 
     Add filtering by category, color, brand and sorting on the basis of high to low / low to high price
