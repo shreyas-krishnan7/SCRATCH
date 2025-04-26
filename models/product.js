@@ -1,26 +1,32 @@
 const mongoose = require("mongoose")
 const productschema = mongoose.Schema({
     image :{
-        type:String
+        type:Buffer,
+        required:true
     },
     name : {
-        type:String
+        type:String,
+        required:true
     }, 
     price: {
-        type:Number
+        type:Number,
+        required:true
     }, 
     discount :{
         type:Number,
         default:0
     }, 
     bgcolor : {
-        type:String
+        type:String,
+        required:true
     } , 
-    panelcolour : {
-        type: String
+    panelcolor : {
+        type: String,
+        required:true
     } , 
     textcolor :{
-        type:String
+        type:String,
+        required:true
     }
 
 

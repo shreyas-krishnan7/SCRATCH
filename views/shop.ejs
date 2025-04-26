@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta http-equiv="refresh" content="3"> -->
+  <title>Shop</title>
+  <link rel="stylesheet" href="/stylesheets/shop.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="shop-container">
+    <aside class="sidebar">
+      <h1 class="brand"><span style="color: rgb(57, 179, 227); font-weight: 600;"> Scatch </span></h1>
+      
+      <!-- <div class="sort-section">
+        <label for="sort">Sort By</label>
+        <select id="sort">
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div> -->
+
+      <nav class="collection-links">
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <!-- <li><a href="#">Discounted Products</a></li> -->
+        </ul>
+      </nav>
+
+    </aside>
+    <main class="products">
+
+      <nav>
+        <a href="/users/cart">Cart</a>
+        <a href="/users/account">My Account</a>
+        <a href="/users/logout" style="color:rgb(176, 10, 10);">Logout</a>
+      </nav>
+      <div class="flashmessages">
+        <% if (messages.error && messages.error.length > 0) { %>
+            <div class="emsg alert alert-danger" id="flasherror">
+              <%= messages.error[0] %>
+            </div>
+          <% } %>
+          
+          <% if (messages.success && messages.success.length > 0) { %>
+            <div class="smsg alert alert-success" id="flashsuccess">
+              <%= messages.success[0] %>
+            </div>
+          <% } %>
+    </div>
+      <div class="product-grid">
+        <% product.forEach((prod)=>{ %> 
+        <div class="card">
+          <img src= "data:image/jpeg;base64,<%= prod.image.toString('base64') %>"  class="card-img-top" alt="<%= prod.name %>" style="bgcolor: <%= prod.bgcolor %>">
+          <div class="card-body d-flex flex-column justify-content-between " style="background-color: <%= prod.panelcolor %>; color: <%= prod.textcolor%>">
+            <div>
+              <h5 class="card-title"><%= prod.name %></h5>
+              <p class="card-text">Rs. <%= prod.price %></p>
+            </div>
+            <button class="btn btn-light btn-sm rounded-circle align-self-end"><a href="addtocart/<%= prod.id%>" style="text-decoration: none;color: black;">+</a></button>
+          </div>
+        </div>        
+        
+        <% }) %>
+
+      </div>
+    </main>
+    <script>
+      setTimeout(()=>{
+        hideflashmessages()
+      },3000);
+      function hideflashmessages(){
+        flasherror = document.getElementById('flasherror')
+        flashsuccess = document.getElementById('flashsuccess')
+        if(flasherror != null){
+          flasherror.style.display = 'none';          
+        }
+        else{
+          flashsuccess.style.display = 'none';
+        }
+        
+     
+
+      }
+    </script>
+    
+
+  </div>
+</body>
+</html>

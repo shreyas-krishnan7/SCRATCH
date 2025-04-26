@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/cart.css">
+    <title>Scatch - A Premium Clothing App </title>
+</head>
+<body>
+  <h1><span style="color: rgb(57, 179, 227); font-weight: 600;"> Shopping Cart </span></h1>
+ 
+  <% let totalAmount = 0; %>
+  <% cart.forEach((item, index)=>{    %>
+     
+      <div class="cart-container" id="item-container-<%= index %>">
+        <div class="product-section">
+          <div class="product-image">
+            <img src="data:image/jpeg;base64,<%= item.productimage.toString('base64') %>" alt="">
+          </div>
+          <h3 class="product-name"><%= item.productname %></h3>
+          <div class="quantity-controls">
+            <button class="quantity-btn plus-btn" data-index="<%= index %>" data-price="<%= item.productprice %>">+</button>
+            <span class="quantity" id="quantity-<%= index %>">1</span>
+            <button class="quantity-btn minus-btn" data-index="<%= index %>" data-price="<%= item.productprice %>">−</button>
+          </div>
+          <p class="net-total">Net Total</p>
+         
+          <p class="price" id="price-<%= index %>">₹<%= item.productprice %></p>
+        </div>
+        <div class="price-breakdown">
+          <h3>Price Breakdown</h3>
+          <div class="breakdown-row">
+            <span>Total MRP</span>
+            <span id="mrp-<%= index %>">₹<%= item.productprice %></span>
+          </div>
+          <div class="breakdown-row">
+            <span>Discount on MRP</span>
+            <span>₹ 0</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Platform Fee</span>
+            <span>₹ 20</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Shipping Fee</span>
+            <span>FREE</span>
+          </div>
+          <hr />
+          <div class="total-row">
+            <span>Total Amount</span>
+            <span class="total-amount" id="item-total-<%= index %>">₹<%= item.productprice + 20 %></span>
+          </div>
+        </div>
+      </div>
+      <% totalAmount += (item.productprice + 20); %>
+    <%  }) %>
+   
+    <!-- Final Summary Container -->
+    <div class="cart-container">
+      <div class="price-breakdown" style="width: 100%;">
+        <h3>Order Summary</h3>
+        <div class="total-row">
+          <span>Total Items</span>
+          <span id="total-items"><%= cart.length %></span>
+        </div>
+        <div class="total-row">
+          <span>Total Amount</span>
+          <span class="total-amount" id="grand-total">₹<%= totalAmount %></span>
+        </div>
+        
+        <!-- Payment Button -->
+        <div class="payment-action">
+          <button id="checkout-button" class="checkout-button">Proceed to Payment</button>
+        </div>
+      </div>
+    </div>
+   
+    <script>
+      // Store the original product prices
+      const productPrices = {};
+      <% cart.forEach((item, index) => { %>
+        productPrices[<%= index %>] = <%= item.productprice %>;
+      <% }); %>
+
+      // Function to update the cart totals
+      function updateTotals() {
+        let newGrandTotal = 0;
+        
+        // Loop through all items and sum their totals
+        Object.keys(productPrices).forEach(index => {
+          const quantity = parseInt(document.getElementById(`quantity-${index}`).textContent);
+          const itemTotal = (productPrices[index] * quantity) + 20; // Add platform fee
+          newGrandTotal += itemTotal;
+        });
+        
+        // Update the grand total
+        document.getElementById('grand-total').textContent = '₹' + newGrandTotal;
+      }
+
+      // Add event listeners for all plus buttons
+      document.querySelectorAll('.plus-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const index = this.getAttribute('data-index');
+          const price = parseFloat(this.getAttribute('data-price'));
+          
+          // Get and update quantity
+          const quantityElement = document.getElementById(`quantity-${index}`);
+          let quantity = parseInt(quantityElement.textContent);
+          quantity += 1;
+          quantityElement.textContent = quantity;
+          
+          // Update price display
+          const totalPrice = price * quantity;
+          document.getElementById(`price-${index}`).textContent = '₹' + totalPrice;
+          document.getElementById(`mrp-${index}`).textContent = '₹' + totalPrice;
+          document.getElementById(`item-total-${index}`).textContent = '₹' + (totalPrice + 20);
+          
+          // Update the grand total
+          updateTotals();
+        });
+      });
+
+      // Add event listeners for all minus buttons
+      document.querySelectorAll('.minus-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const index = this.getAttribute('data-index');
+          const price = parseFloat(this.getAttribute('data-price'));
+          
+          // Get and update quantity (minimum 1)
+          const quantityElement = document.getElementById(`quantity-${index}`);
+          let quantity = parseInt(quantityElement.textContent);
+          if (quantity >=0 ) {
+            quantity -= 1;
+            quantityElement.textContent = quantity;
+            if(quantity == 0){
+              document.getElementById(`item-container-${index}`).style.display = 'none';
+            }
+            
+            // Update price display
+            const totalPrice = price * quantity;
+            document.getElementById(`price-${index}`).textContent = '₹' + totalPrice;
+            document.getElementById(`mrp-${index}`).textContent = '₹' + totalPrice;
+            document.getElementById(`item-total-${index}`).textContent = '₹' + (totalPrice + 20);
+            
+            // Update the grand total
+            updateTotals();
+          }
+        });
+      });
+
+      // Checkout button event
+      document.getElementById('checkout-button').addEventListener('click', function(e) {
+        // Prevent default action (no redirection)
+        e.preventDefault();
+        alert('Payment Processing ... ');
+      });
+    </script>
+</body>
+</html>
