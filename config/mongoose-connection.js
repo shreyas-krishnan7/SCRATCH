@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
-const config = require("config")
-mongoose.connect(`${config.get("MONGODB_URL")}/scatch`)
+require("dotenv").config();
+mongoose.connect(process.env.MONGODB_URL)
+
 .then(()=>{
     console.log("connected");
 })
