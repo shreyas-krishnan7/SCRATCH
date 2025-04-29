@@ -1,8 +1,8 @@
-# SCATCH
+# SCRATCH
 
-🛍️ Scatch
+🛍️ Scratch
 
-Scatch is a sleek and user-friendly online clothing store built for a smooth shopping experience. From casual wear to statement pieces, Scatch helps users browse, sort, and purchase clothes with ease.
+Scratch is a sleek and user-friendly online clothing store built for a smooth shopping experience. From casual wear to statement pieces, Scratch helps users browse, sort, and purchase clothes with ease.
 ✨ Features
 
     👕 Browse a variety of clothing items with images and descriptions
@@ -21,7 +21,7 @@ Scatch is a sleek and user-friendly online clothing store built for a smooth sho
 
     Backend: Node.js, Express
 
-    Database: MongoDB (or your choice)
+    Database: Mongo DB 
 
     Authentication: JWT / Sessions
 
@@ -29,7 +29,7 @@ Scatch is a sleek and user-friendly online clothing store built for a smooth sho
 
 🚀 How to Run Locally
 
-git clone https://github.com/yourusername/scatch.git
+git clone https://github.com/shreyas-krishnan7/scratch.git
 cd scatch
 npm install
 npm start
