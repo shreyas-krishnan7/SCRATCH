@@ -1,3 +1,4 @@
 {
-   "MONGODB_URL" : "mongodb://127.0.0.1:27017"
+   "MONGODB_URL" : "mongodb+srv://scratchuser:shreyas2201@cluster0.cxljdtg.mongodb.net/scatch?retryWrites=true&w=majority&appName=Cluster0"
 }
+
